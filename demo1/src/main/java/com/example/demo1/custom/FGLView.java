@@ -17,6 +17,6 @@ public class FGLView extends GLSurfaceView {
     public void init(){
         //设置
         setEGLContextClientVersion(2);
-        setRenderer(new FGLRender());
+        setRenderer(new FGLRender(getContext()));
     }
 }

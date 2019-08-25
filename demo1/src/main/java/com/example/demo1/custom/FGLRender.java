@@ -1,10 +1,14 @@
 package com.example.demo1.custom;
 
+import android.content.Context;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
+import android.widget.TextView;
 
+import com.example.demo1.R;
 import com.example.demo1.utils.Logger;
 import com.example.demo1.utils.ShaderHelper;
+import com.example.demo1.utils.TextResourceReader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -71,11 +75,14 @@ public class FGLRender implements GLSurfaceView.Renderer {
     //顶点着色器属性位置
     private int aPositionLocation;
 
-    public FGLRender() {
-        init();
+    public FGLRender(Context context) {
+        init(context);
     }
 
-    private void init() {
+    private void init(Context context) {
+
+        vertexShader = TextResourceReader.readTextFileFromResource(context, R.raw.simple_vertex_shader);
+        fragmentShader = TextResourceReader.readTextFileFromResource(context, R.raw.simple_fragment_shader);
 
         vertexData = ByteBuffer.allocateDirect(tableVertices.length * 4)//设置数组的字节数作为分配内存的长度
                 .order(ByteOrder.nativeOrder())//按照本地字节序组织内容
